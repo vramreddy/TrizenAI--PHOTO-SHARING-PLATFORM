@@ -33,30 +33,47 @@ const LoginPage = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="space-y-4 w-full"
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full"
+      style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
     >
-      <div className="card p-8 border-white/10 shadow-2xl bg-slate-900/80">
-        <div className="text-center mb-6">
-          <h2 className="text-xl font-extrabold text-white tracking-tight">Sign In to Workspace</h2>
-          <p className="text-xs text-slate-400 mt-1">
+      {/* Login Card */}
+      <div
+        className="card"
+        style={{
+          padding: '2.25rem',
+          borderColor: 'var(--border-default)',
+          boxShadow: 'var(--shadow-xl), 0 0 60px -12px hsla(239, 84%, 67%, 0.10)',
+        }}
+      >
+        <div className="text-center" style={{ marginBottom: '1.75rem' }}>
+          <h2
+            className="font-extrabold tracking-tight"
+            style={{ fontSize: '1.375rem', color: 'var(--text-primary)' }}
+          >
+            Sign In to Workspace
+          </h2>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--text-tertiary)', marginTop: '0.375rem' }}>
             Access your photography events and galleries
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          {/* Email Field */}
           <div>
             <label className="input-label">Email Address</label>
-            <div className="relative flex items-center">
-              <HiOutlineMail className="absolute left-3.5 text-slate-400 pointer-events-none" size={18} />
+            <div className="input-icon-wrapper">
+              <span className="input-icon">
+                <HiOutlineMail size={18} />
+              </span>
               <input
                 id="login-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="input pl-11"
+                className="input"
                 placeholder="you@example.com"
                 autoComplete="email"
                 required
@@ -64,18 +81,20 @@ const LoginPage = () => {
             </div>
           </div>
 
+          {/* Password Field */}
           <div>
-            <div className="flex items-center justify-between mb-1">
-              <label className="input-label mb-0">Password</label>
-            </div>
-            <div className="relative flex items-center">
-              <HiOutlineLockClosed className="absolute left-3.5 text-slate-400 pointer-events-none" size={18} />
+            <label className="input-label">Password</label>
+            <div className="input-icon-wrapper">
+              <span className="input-icon">
+                <HiOutlineLockClosed size={18} />
+              </span>
               <input
                 id="login-password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="input pl-11 pr-11"
+                className="input"
+                style={{ paddingRight: '2.75rem' }}
                 placeholder="••••••••"
                 autoComplete="current-password"
                 required
@@ -83,19 +102,22 @@ const LoginPage = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3.5 text-slate-400 hover:text-slate-200 cursor-pointer transition-colors p-1"
+                className="input-action-right"
                 tabIndex={-1}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? <HiOutlineEyeOff size={18} /> : <HiOutlineEye size={18} />}
               </button>
             </div>
           </div>
 
+          {/* Submit Button */}
           <button
             id="login-submit"
             type="submit"
             disabled={loading}
-            className="btn-primary w-full py-3 text-sm font-bold mt-2 shadow-lg cursor-pointer"
+            className="btn-primary"
+            style={{ width: '100%', padding: '0.8rem', fontSize: '0.9rem', fontWeight: 700, marginTop: '0.25rem' }}
           >
             {loading ? (
               <div className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} />
@@ -105,42 +127,106 @@ const LoginPage = () => {
           </button>
         </form>
 
-        <p className="text-center text-xs text-slate-400 mt-6">
+        <p className="text-center" style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginTop: '1.5rem' }}>
           Need an admin account?{' '}
-          <Link to="/register" className="font-bold text-indigo-400 hover:text-indigo-300 hover:underline">
+          <Link
+            to="/register"
+            style={{ fontWeight: 700, color: 'var(--color-primary-light)' }}
+            className="hover:underline"
+          >
             Register as Lead
           </Link>
         </p>
       </div>
 
-      {/* Demo credentials quick login */}
-      <div className="card p-4 border-indigo-500/20 bg-indigo-950/20 space-y-2.5">
-        <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-400">
+      {/* Demo Credentials Card */}
+      <div
+        className="card"
+        style={{
+          padding: '1.25rem',
+          borderColor: 'hsla(239, 84%, 67%, 0.15)',
+          background: 'hsla(239, 50%, 12%, 0.5)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            color: 'var(--color-primary-light)',
+            marginBottom: '0.75rem',
+          }}
+        >
           <HiOutlineSparkles size={14} />
-          <span>Quick Demo Access (Click to Fill):</span>
+          <span>Quick Demo Access (Click to Fill)</span>
         </div>
-        <div className="grid grid-cols-2 gap-2.5">
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.625rem' }}>
           <button
             type="button"
             onClick={() => {
               setEmail('admin@snapshare.com');
               setPassword('admin123');
             }}
-            className="p-3 rounded-xl text-left bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all cursor-pointer group"
+            style={{
+              padding: '0.875rem 1rem',
+              borderRadius: 'var(--radius-lg)',
+              textAlign: 'left',
+              background: 'hsla(239, 84%, 67%, 0.08)',
+              border: '1px solid hsla(239, 84%, 67%, 0.20)',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+            className="group"
+            onMouseOver={(e) => {
+              e.currentTarget.style.background = 'hsla(239, 84%, 67%, 0.15)';
+              e.currentTarget.style.borderColor = 'hsla(239, 84%, 67%, 0.35)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.background = 'hsla(239, 84%, 67%, 0.08)';
+              e.currentTarget.style.borderColor = 'hsla(239, 84%, 67%, 0.20)';
+            }}
           >
-            <span className="text-xs font-bold text-white block group-hover:text-indigo-300">Admin / Lead</span>
-            <span className="text-[10px] text-slate-400 block truncate mt-0.5">admin@snapshare.com</span>
+            <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--text-primary)', display: 'block' }}>
+              Admin / Lead
+            </span>
+            <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.25rem' }}>
+              admin@snapshare.com
+            </span>
           </button>
+
           <button
             type="button"
             onClick={() => {
               setEmail('rahul@snapshare.com');
               setPassword('member123');
             }}
-            className="p-3 rounded-xl text-left bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-all cursor-pointer group"
+            style={{
+              padding: '0.875rem 1rem',
+              borderRadius: 'var(--radius-lg)',
+              textAlign: 'left',
+              background: 'hsla(160, 84%, 39%, 0.08)',
+              border: '1px solid hsla(160, 84%, 39%, 0.20)',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.background = 'hsla(160, 84%, 39%, 0.15)';
+              e.currentTarget.style.borderColor = 'hsla(160, 84%, 39%, 0.35)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.background = 'hsla(160, 84%, 39%, 0.08)';
+              e.currentTarget.style.borderColor = 'hsla(160, 84%, 39%, 0.20)';
+            }}
           >
-            <span className="text-xs font-bold text-white block group-hover:text-emerald-300">Photographer</span>
-            <span className="text-[10px] text-slate-400 block truncate mt-0.5">rahul@snapshare.com</span>
+            <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--text-primary)', display: 'block' }}>
+              Photographer
+            </span>
+            <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.25rem' }}>
+              rahul@snapshare.com
+            </span>
           </button>
         </div>
       </div>

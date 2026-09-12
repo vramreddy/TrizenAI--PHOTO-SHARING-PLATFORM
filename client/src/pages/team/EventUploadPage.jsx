@@ -111,66 +111,130 @@ const EventUploadPage = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center items-center h-80 gap-3">
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '20rem', gap: '0.75rem' }}>
         <div className="spinner" />
-        <p className="text-xs text-slate-400 font-medium">Loading event upload console...</p>
+        <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', fontWeight: 500 }}>Loading event upload console...</p>
       </div>
     );
   }
 
   return (
-    <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+    >
       <button
         onClick={() => navigate('/team')}
-        className="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-colors"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          fontSize: '0.8125rem',
+          fontWeight: 600,
+          color: 'var(--text-muted)',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          padding: '0.25rem',
+          transition: 'color 0.15s ease',
+        }}
+        onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+        onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
       >
         <HiOutlineArrowLeft size={16} /> Back to Assigned Events
       </button>
 
-      <div className="p-6 rounded-2xl glass border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Event Header */}
+      <div
+        className="glass"
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '1rem',
+          padding: '1.5rem',
+          borderRadius: 'var(--radius-2xl)',
+        }}
+      >
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-indigo-400 tracking-wider uppercase mb-1">
-            <HiOutlineSparkles size={14} /> Batch Upload Workspace
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', marginBottom: '0.375rem' }}>
+            <HiOutlineSparkles size={14} style={{ color: 'var(--color-primary-light)' }} />
+            <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--color-primary-light)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              Batch Upload Workspace
+            </span>
           </div>
-          <h1 className="text-2xl font-extrabold text-white tracking-tight">{event?.name}</h1>
-          <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+            {event?.name}
+          </h1>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginTop: '0.375rem', maxWidth: '36rem', lineHeight: 1.5 }}>
             {event?.description || 'Upload event photographs directly into the curation pool for admin review.'}
           </p>
         </div>
 
-        <div className="px-4 py-2 rounded-xl bg-white/[0.03] border border-white/5 text-right shrink-0">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Uploads</p>
-          <p className="text-sm font-bold text-white">
-            <span className="text-indigo-400">{myPhotos.length}</span> Photos
+        <div
+          style={{
+            textAlign: 'right',
+            padding: '0.75rem 1rem',
+            borderRadius: 'var(--radius-lg)',
+            background: 'hsla(0, 0%, 100%, 0.02)',
+            border: '1px solid var(--border-subtle)',
+            flexShrink: 0,
+          }}
+        >
+          <p style={{ fontSize: '0.5625rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Total Uploads</p>
+          <p style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '0.125rem' }}>
+            <span style={{ color: 'var(--color-primary-light)' }}>{myPhotos.length}</span> Photos
           </p>
         </div>
       </div>
 
       {/* Upload Drag & Drop Area */}
-      <div className="card p-6 border-white/10 space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <HiOutlineCloudUpload size={20} className="text-indigo-400" /> Upload Photographs
+      <div className="card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+          <h2 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <HiOutlineCloudUpload size={20} style={{ color: 'var(--color-primary-light)' }} /> Upload Photographs
           </h2>
-          <span className="text-xs text-slate-400">JPEG, PNG, WebP • Max 10MB each</span>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>JPEG, PNG, WebP • Max 10MB each</span>
         </div>
 
         <div
           {...getRootProps()}
-          className={`relative border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all ${
-            isDragActive
-              ? 'border-indigo-500 bg-indigo-500/10 scale-[0.99]'
-              : 'border-white/15 hover:border-indigo-400 hover:bg-white/[0.02]'
-          }`}
+          style={{
+            position: 'relative',
+            border: '2px dashed',
+            borderColor: isDragActive ? 'var(--color-primary)' : 'var(--border-default)',
+            borderRadius: 'var(--radius-xl)',
+            padding: '2.5rem 1.5rem',
+            textAlign: 'center',
+            cursor: 'pointer',
+            transition: 'all 0.25s ease',
+            background: isDragActive ? 'hsla(239, 84%, 67%, 0.06)' : 'transparent',
+            transform: isDragActive ? 'scale(0.995)' : 'scale(1)',
+          }}
         >
           <input {...getInputProps()} />
-          <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto mb-3">
-            <HiOutlineUpload size={32} />
+          <div
+            style={{
+              width: '3.5rem',
+              height: '3.5rem',
+              borderRadius: 'var(--radius-xl)',
+              background: 'hsla(239, 84%, 67%, 0.10)',
+              color: 'var(--color-primary-light)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 0.75rem',
+            }}
+          >
+            <HiOutlineUpload size={28} />
           </div>
-          <p className="text-sm font-bold text-white mb-1">
+          <p style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.375rem' }}>
             {isDragActive ? 'Drop your photographs here...' : 'Drag & drop photos here, or browse files'}
           </p>
-          <p className="text-xs text-slate-400">
+          <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
             Select multiple images at once to upload batch shots directly.
           </p>
         </div>
@@ -182,19 +246,33 @@ const EventUploadPage = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="space-y-4 pt-2"
+              style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', paddingTop: '0.5rem', overflow: 'hidden' }}
             >
-              <div className="flex items-center justify-between p-3 rounded-xl bg-indigo-950/30 border border-indigo-500/20">
-                <span className="text-xs font-bold text-indigo-300">
+              {/* Status bar */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '0.75rem 1rem',
+                  borderRadius: 'var(--radius-lg)',
+                  background: 'hsla(239, 50%, 12%, 0.4)',
+                  border: '1px solid hsla(239, 84%, 67%, 0.15)',
+                  gap: '0.5rem',
+                }}
+              >
+                <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--color-primary-light)' }}>
                   {files.length} Photo(s) Staged for Upload
                 </span>
-                <div className="flex items-center gap-2">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
                   <button
                     onClick={() => {
                       files.forEach((f) => URL.revokeObjectURL(f.preview));
                       setFiles([]);
                     }}
-                    className="btn-secondary text-xs py-1.5 px-3"
+                    className="btn-secondary"
+                    style={{ fontSize: '0.75rem', padding: '0.375rem 0.625rem' }}
                     disabled={uploading}
                   >
                     Clear All
@@ -202,7 +280,8 @@ const EventUploadPage = () => {
                   <button
                     onClick={handleUpload}
                     disabled={uploading}
-                    className="btn-primary text-xs py-1.5 px-4 font-bold"
+                    className="btn-primary"
+                    style={{ fontSize: '0.75rem', padding: '0.375rem 1rem', fontWeight: 700 }}
                   >
                     {uploading ? `Uploading (${uploadProgress}%)` : `Upload ${files.length} Photos`}
                   </button>
@@ -211,10 +290,9 @@ const EventUploadPage = () => {
 
               {/* Progress Bar */}
               {uploading && (
-                <div className="h-2 rounded-full overflow-hidden bg-slate-800">
+                <div style={{ height: '0.375rem', borderRadius: 'var(--radius-full)', overflow: 'hidden', background: 'var(--surface-3)' }}>
                   <motion.div
-                    className="h-full rounded-full"
-                    style={{ background: 'var(--gradient-primary)' }}
+                    style={{ height: '100%', borderRadius: 'var(--radius-full)', background: 'var(--gradient-primary)' }}
                     initial={{ width: 0 }}
                     animate={{ width: `${uploadProgress}%` }}
                     transition={{ duration: 0.2 }}
@@ -222,24 +300,51 @@ const EventUploadPage = () => {
                 </div>
               )}
 
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+              {/* Thumbnails */}
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8" style={{ gap: '0.625rem' }}>
                 {files.map((f) => (
                   <motion.div
                     key={f.id}
                     layout
-                    className="relative group rounded-xl overflow-hidden aspect-square border border-white/10"
+                    style={{
+                      position: 'relative',
+                      borderRadius: 'var(--radius-lg)',
+                      overflow: 'hidden',
+                      aspectRatio: '1',
+                      border: '1px solid var(--border-default)',
+                    }}
+                    className="group"
                   >
-                    <img src={f.preview} alt="" className="w-full h-full object-cover" />
+                    <img src={f.preview} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     {!uploading && (
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           removeFile(f.id);
                         }}
-                        className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/70 hover:bg-rose-500 text-white flex items-center justify-center transition-colors cursor-pointer"
                         title="Remove photo"
+                        style={{
+                          position: 'absolute',
+                          top: '0.25rem',
+                          right: '0.25rem',
+                          width: '1.375rem',
+                          height: '1.375rem',
+                          borderRadius: '50%',
+                          background: 'hsla(0, 0%, 0%, 0.65)',
+                          color: 'white',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          border: 'none',
+                          cursor: 'pointer',
+                          transition: 'background 0.15s ease',
+                          opacity: 0,
+                        }}
+                        className="group-hover:opacity-100"
+                        onMouseOver={(e) => (e.currentTarget.style.background = 'var(--color-error)')}
+                        onMouseOut={(e) => (e.currentTarget.style.background = 'hsla(0, 0%, 0%, 0.65)')}
                       >
-                        <HiOutlineX size={14} />
+                        <HiOutlineX size={12} />
                       </button>
                     )}
                   </motion.div>
@@ -251,45 +356,80 @@ const EventUploadPage = () => {
       </div>
 
       {/* Existing Uploaded Photos */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <HiOutlinePhotograph size={18} className="text-indigo-400" /> Event Uploads ({myPhotos.length})
-            </h2>
-            <p className="text-xs text-slate-400">All photographs uploaded to this event</p>
-          </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+        <div>
+          <h2 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <HiOutlinePhotograph size={18} style={{ color: 'var(--color-primary-light)' }} /> Event Uploads ({myPhotos.length})
+          </h2>
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.125rem' }}>All photographs uploaded to this event</p>
         </div>
 
         {myPhotos.length === 0 ? (
-          <div className="card text-center py-12 flex flex-col items-center">
-            <HiOutlinePhotograph className="text-slate-500 mb-2" size={36} />
-            <p className="text-xs text-slate-400">No photos uploaded to this event yet</p>
+          <div className="card" style={{ textAlign: 'center', padding: '3rem 1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <HiOutlinePhotograph style={{ color: 'var(--text-muted)', marginBottom: '0.5rem' }} size={32} />
+            <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>No photos uploaded to this event yet</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6" style={{ gap: '0.75rem' }}>
             {myPhotos.map((photo) => (
               <div
                 key={photo._id}
-                className="relative group rounded-2xl overflow-hidden aspect-square border border-white/10 bg-slate-900/60 shadow-md"
+                className="group"
+                style={{
+                  position: 'relative',
+                  borderRadius: 'var(--radius-xl)',
+                  overflow: 'hidden',
+                  aspectRatio: '1',
+                  border: '1px solid var(--border-subtle)',
+                  background: 'var(--surface-2)',
+                }}
               >
                 <img
                   src={photo.thumbnailUrl || photo.storageUrl}
                   alt={photo.originalName}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                  className="group-hover:scale-105"
                   loading="lazy"
                 />
 
                 {photo.selected && (
-                  <div className="absolute top-2 right-2">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500 text-white shadow-md flex items-center gap-1">
-                      <HiOutlineCheck size={12} /> Curated
+                  <div style={{ position: 'absolute', top: '0.5rem', right: '0.5rem' }}>
+                    <span
+                      style={{
+                        fontSize: '0.5625rem',
+                        fontWeight: 700,
+                        padding: '0.125rem 0.5rem',
+                        borderRadius: 'var(--radius-sm)',
+                        background: 'var(--color-success)',
+                        color: 'white',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.25rem',
+                        boxShadow: 'var(--shadow-sm)',
+                      }}
+                    >
+                      <HiOutlineCheck size={11} /> Curated
                     </span>
                   </div>
                 )}
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-2 flex flex-col justify-end">
-                  <p className="text-[11px] font-semibold text-white truncate drop-shadow">{photo.originalName}</p>
+                <div
+                  className="group-hover:opacity-100"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, hsla(0,0%,0%,0.75) 0%, transparent 50%)',
+                    opacity: 0,
+                    transition: 'opacity 0.3s ease',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                    padding: '0.625rem',
+                  }}
+                >
+                  <p style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'white', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
+                    {photo.originalName}
+                  </p>
                 </div>
               </div>
             ))}

@@ -42,48 +42,85 @@ const RegisterPage = () => {
     }
   };
 
+  // Password strength indicator
+  const getPasswordStrength = () => {
+    if (!password) return { level: 0, label: '', color: '' };
+    let score = 0;
+    if (password.length >= 6) score++;
+    if (password.length >= 10) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+
+    if (score <= 1) return { level: 1, label: 'Weak', color: 'hsl(350, 89%, 60%)' };
+    if (score <= 2) return { level: 2, label: 'Fair', color: 'hsl(38, 92%, 60%)' };
+    if (score <= 3) return { level: 3, label: 'Good', color: 'hsl(160, 84%, 54%)' };
+    return { level: 4, label: 'Strong', color: 'hsl(160, 84%, 39%)' };
+  };
+
+  const strength = getPasswordStrength();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="space-y-4 w-full"
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full"
+      style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
     >
-      <div className="card p-8 border-white/10 shadow-2xl bg-slate-900/80">
-        <div className="text-center mb-6">
-          <h2 className="text-xl font-extrabold text-white tracking-tight">Create Admin Account</h2>
-          <p className="text-xs text-slate-400 mt-1">
+      <div
+        className="card"
+        style={{
+          padding: '2.25rem',
+          borderColor: 'var(--border-default)',
+          boxShadow: 'var(--shadow-xl), 0 0 60px -12px hsla(239, 84%, 67%, 0.10)',
+        }}
+      >
+        <div className="text-center" style={{ marginBottom: '1.75rem' }}>
+          <h2
+            className="font-extrabold tracking-tight"
+            style={{ fontSize: '1.375rem', color: 'var(--text-primary)' }}
+          >
+            Create Admin Account
+          </h2>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--text-tertiary)', marginTop: '0.375rem' }}>
             Lead photographer registration for event & gallery management
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.125rem' }}>
+          {/* Full Name */}
           <div>
             <label className="input-label">Full Name</label>
-            <div className="relative flex items-center">
-              <HiOutlineUser className="absolute left-3.5 text-slate-400 pointer-events-none" size={18} />
+            <div className="input-icon-wrapper">
+              <span className="input-icon">
+                <HiOutlineUser size={18} />
+              </span>
               <input
                 id="register-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="input pl-11"
+                className="input"
                 placeholder="Venkata Rami Reddy"
                 required
               />
             </div>
           </div>
 
+          {/* Email */}
           <div>
             <label className="input-label">Email Address</label>
-            <div className="relative flex items-center">
-              <HiOutlineMail className="absolute left-3.5 text-slate-400 pointer-events-none" size={18} />
+            <div className="input-icon-wrapper">
+              <span className="input-icon">
+                <HiOutlineMail size={18} />
+              </span>
               <input
                 id="register-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="input pl-11"
+                className="input"
                 placeholder="lead@example.com"
                 autoComplete="email"
                 required
@@ -91,16 +128,20 @@ const RegisterPage = () => {
             </div>
           </div>
 
+          {/* Password */}
           <div>
             <label className="input-label">Password</label>
-            <div className="relative flex items-center">
-              <HiOutlineLockClosed className="absolute left-3.5 text-slate-400 pointer-events-none" size={18} />
+            <div className="input-icon-wrapper">
+              <span className="input-icon">
+                <HiOutlineLockClosed size={18} />
+              </span>
               <input
                 id="register-password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="input pl-11 pr-11"
+                className="input"
+                style={{ paddingRight: '2.75rem' }}
                 placeholder="Minimum 6 characters"
                 autoComplete="new-password"
                 required
@@ -108,24 +149,58 @@ const RegisterPage = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3.5 text-slate-400 hover:text-slate-200 cursor-pointer transition-colors p-1"
+                className="input-action-right"
                 tabIndex={-1}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? <HiOutlineEyeOff size={18} /> : <HiOutlineEye size={18} />}
               </button>
             </div>
+
+            {/* Password Strength Bar */}
+            {password && (
+              <div style={{ marginTop: '0.5rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '0.25rem',
+                    height: '3px',
+                    borderRadius: '2px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      style={{
+                        flex: 1,
+                        borderRadius: '2px',
+                        background: i <= strength.level ? strength.color : 'var(--border-subtle)',
+                        transition: 'background 0.3s ease',
+                      }}
+                    />
+                  ))}
+                </div>
+                <p style={{ fontSize: '0.6875rem', color: strength.color, marginTop: '0.25rem', fontWeight: 600 }}>
+                  {strength.label}
+                </p>
+              </div>
+            )}
           </div>
 
+          {/* Confirm Password */}
           <div>
             <label className="input-label">Confirm Password</label>
-            <div className="relative flex items-center">
-              <HiOutlineLockClosed className="absolute left-3.5 text-slate-400 pointer-events-none" size={18} />
+            <div className="input-icon-wrapper">
+              <span className="input-icon">
+                <HiOutlineLockClosed size={18} />
+              </span>
               <input
                 id="register-confirm-password"
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="input pl-11"
+                className="input"
                 placeholder="Re-enter password"
                 autoComplete="new-password"
                 required
@@ -133,11 +208,13 @@ const RegisterPage = () => {
             </div>
           </div>
 
+          {/* Submit */}
           <button
             id="register-submit"
             type="submit"
             disabled={loading}
-            className="btn-primary w-full py-3 text-sm font-bold mt-2 shadow-lg cursor-pointer"
+            className="btn-primary"
+            style={{ width: '100%', padding: '0.8rem', fontSize: '0.9rem', fontWeight: 700, marginTop: '0.25rem' }}
           >
             {loading ? (
               <div className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} />
@@ -147,9 +224,13 @@ const RegisterPage = () => {
           </button>
         </form>
 
-        <p className="text-center text-xs text-slate-400 mt-6">
+        <p className="text-center" style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginTop: '1.5rem' }}>
           Already have an account?{' '}
-          <Link to="/login" className="font-bold text-indigo-400 hover:text-indigo-300 hover:underline">
+          <Link
+            to="/login"
+            style={{ fontWeight: 700, color: 'var(--color-primary-light)' }}
+            className="hover:underline"
+          >
             Sign In
           </Link>
         </p>

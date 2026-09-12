@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { galleryService } from '../../services/api';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
-import { HiOutlinePhotograph, HiOutlineLockClosed, HiOutlineSparkles } from 'react-icons/hi';
+import { HiOutlineCamera, HiOutlineLockClosed, HiOutlineSparkles } from 'react-icons/hi';
 
 const GalleryAccessPage = () => {
   const { slug } = useParams();
@@ -99,27 +99,40 @@ const GalleryAccessPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-3" style={{ background: '#0B0F19' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', background: 'var(--surface-base)' }}>
         <div className="spinner" />
-        <p className="text-xs text-slate-400 font-medium">Connecting to secure gallery...</p>
+        <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', fontWeight: 500 }}>Connecting to secure gallery...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4" style={{ background: '#0B0F19' }}>
-        <div className="card text-center max-w-md w-full p-8 border-white/10">
-          <div className="w-16 h-16 rounded-2xl bg-rose-500/10 text-rose-400 flex items-center justify-center mx-auto mb-4">
-            <HiOutlinePhotograph size={32} />
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', background: 'var(--surface-base)' }}>
+        <div className="card" style={{ textAlign: 'center', maxWidth: '28rem', width: '100%', padding: '2.5rem' }}>
+          <div
+            style={{
+              width: '3.5rem',
+              height: '3.5rem',
+              borderRadius: 'var(--radius-xl)',
+              background: 'hsla(350, 89%, 60%, 0.10)',
+              color: 'var(--color-error-light)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 1rem',
+            }}
+          >
+            <HiOutlineCamera size={28} />
           </div>
-          <h1 className="text-xl font-bold text-white mb-2">{error}</h1>
-          <p className="text-xs text-slate-400 leading-relaxed mb-6">
+          <h1 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{error}</h1>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
             The gallery link might be incorrect, private, or has not been published by the lead photographer yet.
           </p>
           <button
             onClick={() => navigate('/login')}
-            className="btn-secondary text-xs w-full py-2.5"
+            className="btn-secondary"
+            style={{ width: '100%', padding: '0.625rem' }}
           >
             Go to Platform Login
           </button>
@@ -130,67 +143,118 @@ const GalleryAccessPage = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-x-hidden overflow-y-auto"
       style={{
-        background: 'radial-gradient(ellipse at 50% 15%, rgba(99,102,241,0.18) 0%, #0B0F19 75%)',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '1rem',
+        position: 'relative',
+        overflow: 'hidden',
+        background: `
+          radial-gradient(ellipse at 50% 15%, hsla(239, 84%, 67%, 0.14) 0%, transparent 55%),
+          linear-gradient(180deg, var(--surface-1) 0%, var(--surface-base) 100%)
+        `,
       }}
     >
-      {/* Ambient background glows */}
-      <div className="fixed top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full blur-3xl opacity-20 pointer-events-none bg-indigo-500" />
+      {/* Ambient glow */}
+      <div
+        style={{
+          position: 'fixed',
+          top: '20%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '500px',
+          height: '350px',
+          borderRadius: '50%',
+          background: 'hsla(239, 84%, 67%, 0.06)',
+          filter: 'blur(80px)',
+          pointerEvents: 'none',
+          animation: 'float-slow 18s ease-in-out infinite',
+        }}
+      />
 
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-10 w-full max-w-md text-center my-8"
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        style={{ position: 'relative', zIndex: 10, width: '100%', maxWidth: '28rem', textAlign: 'center', margin: '2rem 0' }}
       >
         {/* Brand Icon */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.15, type: 'spring', stiffness: 200 }}
-          className="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center relative shadow-2xl"
           style={{
+            width: '4rem',
+            height: '4rem',
+            borderRadius: 'var(--radius-xl)',
+            margin: '0 auto 1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
             background: 'var(--gradient-primary)',
-            boxShadow: '0 0 40px rgba(99,102,241,0.4)',
+            boxShadow: '0 0 40px hsla(239, 84%, 67%, 0.30), inset 0 1px 0 hsla(0, 0%, 100%, 0.12)',
           }}
         >
-          <HiOutlinePhotograph className="text-white text-3xl" />
+          <HiOutlineCamera className="text-white" size={28} />
         </motion.div>
 
         {/* Gallery Title & Header */}
-        <div className="mb-6">
-          <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 inline-flex items-center gap-1.5 mb-3">
-            <HiOutlineSparkles size={13} /> Protected Client Gallery
+        <div style={{ marginBottom: '1.5rem' }}>
+          <span
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.375rem',
+              fontSize: '0.625rem',
+              fontWeight: 700,
+              color: 'var(--color-primary-light)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              padding: '0.25rem 0.75rem',
+              borderRadius: 'var(--radius-full)',
+              background: 'hsla(239, 84%, 67%, 0.08)',
+              border: '1px solid hsla(239, 84%, 67%, 0.15)',
+              marginBottom: '0.75rem',
+            }}
+          >
+            <HiOutlineSparkles size={12} /> Protected Client Gallery
           </span>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+          <h1 style={{ fontSize: 'clamp(1.375rem, 4vw, 1.75rem)', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginTop: '0.75rem' }}>
             {gallery?.title}
           </h1>
           {gallery?.description && (
-            <p className="text-xs text-slate-300 mt-2 max-w-sm mx-auto leading-relaxed">
+            <p style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)', marginTop: '0.625rem', maxWidth: '24rem', margin: '0.625rem auto 0', lineHeight: 1.6 }}>
               {gallery.description}
             </p>
           )}
-          <p className="text-[11px] font-semibold text-slate-400 mt-2">
+          <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', marginTop: '0.625rem' }}>
             ✨ {gallery?.photoCount || 0} Curated Photographs Available
           </p>
         </div>
 
         {/* PIN Entry Card */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="card p-8 border-white/10 shadow-2xl bg-slate-900/90"
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="card"
+          style={{
+            padding: '2rem',
+            boxShadow: 'var(--shadow-xl), 0 0 60px -12px hsla(239, 84%, 67%, 0.10)',
+          }}
         >
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <HiOutlineLockClosed className="text-indigo-400" size={18} />
-            <p className="text-xs font-bold text-slate-200 uppercase tracking-wider">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
+            <HiOutlineLockClosed style={{ color: 'var(--color-primary-light)' }} size={17} />
+            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Enter 6-Digit Access PIN
             </p>
           </div>
 
-          <div className="flex justify-center gap-2.5 sm:gap-3 mb-6">
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
             {pin.map((digit, index) => (
               <input
                 key={index}
@@ -201,12 +265,20 @@ const GalleryAccessPage = () => {
                 onChange={(e) => handlePinChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 maxLength={6}
-                className="w-11 sm:w-12 h-14 text-center text-xl font-mono font-extrabold rounded-xl outline-none transition-all"
                 style={{
-                  background: 'rgba(11,15,25,0.9)',
-                  border: digit ? '2px solid var(--color-primary-light)' : '1px solid rgba(255,255,255,0.12)',
-                  color: '#FFFFFF',
-                  boxShadow: digit ? '0 0 20px rgba(99,102,241,0.25)' : 'none',
+                  width: '2.75rem',
+                  height: '3.5rem',
+                  textAlign: 'center',
+                  fontSize: '1.25rem',
+                  fontFamily: 'var(--font-mono)',
+                  fontWeight: 800,
+                  borderRadius: 'var(--radius-lg)',
+                  outline: 'none',
+                  transition: 'all 0.2s ease',
+                  background: 'var(--surface-1)',
+                  border: digit ? '2px solid var(--color-primary)' : '1px solid var(--border-default)',
+                  color: 'var(--text-primary)',
+                  boxShadow: digit ? '0 0 16px hsla(239, 84%, 67%, 0.15)' : 'none',
                 }}
                 autoFocus={index === 0}
               />
@@ -216,14 +288,15 @@ const GalleryAccessPage = () => {
           <button
             onClick={handleVerify}
             disabled={verifying || pin.join('').length < 4}
-            className="btn-primary w-full py-3 text-sm font-bold shadow-lg"
+            className="btn-primary"
             id="gallery-unlock"
+            style={{ width: '100%', padding: '0.8rem', fontSize: '0.9rem', fontWeight: 700 }}
           >
             {verifying ? (
-              <div className="spinner" style={{ width: 20, height: 20, borderWidth: 2 }} />
+              <div className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} />
             ) : (
               <>
-                <HiOutlineLockClosed size={18} />
+                <HiOutlineLockClosed size={17} />
                 Unlock & View Gallery
               </>
             )}
@@ -232,15 +305,28 @@ const GalleryAccessPage = () => {
           <button
             type="button"
             onClick={() => setPin(['4', '8', '2', '9', '1', '7'])}
-            className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold mt-4 block mx-auto underline transition-colors cursor-pointer"
+            style={{
+              fontSize: '0.75rem',
+              color: 'var(--color-primary-light)',
+              fontWeight: 600,
+              marginTop: '1rem',
+              display: 'block',
+              margin: '1rem auto 0',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+              textUnderlineOffset: '2px',
+              transition: 'color 0.15s ease',
+            }}
           >
             Quick Test: Fill Demo PIN (482917)
           </button>
         </motion.div>
 
         {/* Footer */}
-        <p className="text-[11px] text-slate-400 mt-6">
-          Powered by <span className="font-bold text-slate-400">SnapShare</span> • Private & Secure Photo Delivery
+        <p style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', marginTop: '1.5rem' }}>
+          Powered by <span style={{ fontWeight: 700 }}>TrizenAI</span> · Private & Secure Photo Delivery
         </p>
       </motion.div>
     </div>
