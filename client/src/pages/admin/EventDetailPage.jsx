@@ -261,14 +261,8 @@ const EventDetailPage = () => {
         </button>
 
         <div
-          className="glass"
+          className="glass p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
           style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '1rem',
-            padding: '1.5rem',
             borderRadius: 'var(--radius-2xl)',
           }}
         >
@@ -293,6 +287,7 @@ const EventDetailPage = () => {
           </div>
 
           <div
+            className="self-start sm:self-auto"
             style={{
               textAlign: 'right',
               padding: '0.75rem 1rem',
@@ -314,6 +309,7 @@ const EventDetailPage = () => {
 
       {/* Tabs Navigation — scrollable on mobile */}
       <div
+        className="scrollbar-none"
         style={{
           display: 'flex',
           gap: '0.375rem',
@@ -372,14 +368,8 @@ const EventDetailPage = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {/* Photos Toolbar — wraps properly on mobile */}
           <div
-            className="glass-subtle"
+            className="glass-subtle p-3 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-3"
             style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '0.75rem',
-              padding: '0.875rem 1rem',
               borderRadius: 'var(--radius-xl)',
             }}
           >

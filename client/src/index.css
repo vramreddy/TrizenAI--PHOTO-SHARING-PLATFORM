@@ -599,7 +599,21 @@ a:hover {
   100% { transform: scale(1); }
 }
 
-/* ─── Mobile Utility Overrides ───────────────────────── */
+/* ─── Mobile & Multi-Device Utility Overrides ────────── */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.touch-scroller {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
 @media (max-width: 640px) {
   .btn-primary,
   .btn-secondary,
@@ -608,4 +622,19 @@ a:hover {
     padding: 0.5rem 1rem;
     font-size: 0.8125rem;
   }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .glass-modal {
+    max-width: calc(100vw - 1.5rem) !important;
+  }
 }
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .card {
+    padding: 1.25rem;
+  }
+}
+

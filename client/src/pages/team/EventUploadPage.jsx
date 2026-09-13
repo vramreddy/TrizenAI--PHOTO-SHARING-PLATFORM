@@ -148,14 +148,8 @@ const EventUploadPage = () => {
 
       {/* Event Header */}
       <div
-        className="glass"
+        className="glass p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
         style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1rem',
-          padding: '1.5rem',
           borderRadius: 'var(--radius-2xl)',
         }}
       >
@@ -175,6 +169,7 @@ const EventUploadPage = () => {
         </div>
 
         <div
+          className="self-start sm:self-auto"
           style={{
             textAlign: 'right',
             padding: '0.75rem 1rem',
@@ -192,8 +187,8 @@ const EventUploadPage = () => {
       </div>
 
       {/* Upload Drag & Drop Area */}
-      <div className="card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+      <div className="card p-4 sm:p-6 flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <h2 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <HiOutlineCloudUpload size={20} style={{ color: 'var(--color-primary-light)' }} /> Upload Photographs
           </h2>
@@ -202,15 +197,12 @@ const EventUploadPage = () => {
 
         <div
           {...getRootProps()}
+          className="p-6 sm:p-10 text-center cursor-pointer transition-all duration-200"
           style={{
             position: 'relative',
             border: '2px dashed',
             borderColor: isDragActive ? 'var(--color-primary)' : 'var(--border-default)',
             borderRadius: 'var(--radius-xl)',
-            padding: '2.5rem 1.5rem',
-            textAlign: 'center',
-            cursor: 'pointer',
-            transition: 'all 0.25s ease',
             background: isDragActive ? 'hsla(239, 84%, 67%, 0.06)' : 'transparent',
             transform: isDragActive ? 'scale(0.995)' : 'scale(1)',
           }}
@@ -250,16 +242,11 @@ const EventUploadPage = () => {
             >
               {/* Status bar */}
               <div
+                className="p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '0.75rem 1rem',
                   borderRadius: 'var(--radius-lg)',
                   background: 'hsla(239, 50%, 12%, 0.4)',
                   border: '1px solid hsla(239, 84%, 67%, 0.15)',
-                  gap: '0.5rem',
                 }}
               >
                 <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--color-primary-light)' }}>
@@ -271,7 +258,7 @@ const EventUploadPage = () => {
                       files.forEach((f) => URL.revokeObjectURL(f.preview));
                       setFiles([]);
                     }}
-                    className="btn-secondary"
+                    className="btn-secondary flex-1 sm:flex-none justify-center"
                     style={{ fontSize: '0.75rem', padding: '0.375rem 0.625rem' }}
                     disabled={uploading}
                   >
@@ -280,7 +267,7 @@ const EventUploadPage = () => {
                   <button
                     onClick={handleUpload}
                     disabled={uploading}
-                    className="btn-primary"
+                    className="btn-primary flex-1 sm:flex-none justify-center"
                     style={{ fontSize: '0.75rem', padding: '0.375rem 1rem', fontWeight: 700 }}
                   >
                     {uploading ? `Uploading (${uploadProgress}%)` : `Upload ${files.length} Photos`}

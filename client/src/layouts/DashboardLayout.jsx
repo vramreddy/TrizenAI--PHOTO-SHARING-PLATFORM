@@ -762,7 +762,7 @@ const DashboardLayout = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.96 }}
                     transition={{ duration: 0.15 }}
-                    className="glass-modal absolute right-0 mt-2 w-80 rounded-xl overflow-hidden shadow-2xl z-50"
+                    className="glass-modal absolute -right-2 sm:right-0 mt-2 w-[calc(100vw-2.5rem)] max-w-xs sm:w-80 rounded-xl overflow-hidden shadow-2xl z-50"
                     style={{ border: '1px solid var(--border-strong)' }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.75rem 1rem', borderBottom: '1px solid var(--border-subtle)' }}>
@@ -858,8 +858,8 @@ const DashboardLayout = () => {
 
         {/* Scrollable Content Container */}
         <div
-          className="flex-1 overflow-y-auto"
-          style={{ padding: '1.5rem', maxWidth: '88rem', width: '100%', margin: '0 auto' }}
+          className="flex-1 overflow-y-auto p-3 sm:p-5 md:p-6 lg:p-8"
+          style={{ maxWidth: '88rem', width: '100%', margin: '0 auto' }}
         >
           <Outlet />
         </div>

@@ -241,9 +241,8 @@ const GalleryAccessPage = () => {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="card"
+          className="card p-4 sm:p-8"
           style={{
-            padding: '2rem',
             boxShadow: 'var(--shadow-xl), 0 0 60px -12px hsla(239, 84%, 67%, 0.10)',
           }}
         >
@@ -254,7 +253,7 @@ const GalleryAccessPage = () => {
             </p>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+          <div className="flex justify-center gap-1.5 sm:gap-2 mb-6 max-w-full overflow-x-auto">
             {pin.map((digit, index) => (
               <input
                 key={index}
@@ -265,16 +264,8 @@ const GalleryAccessPage = () => {
                 onChange={(e) => handlePinChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 maxLength={6}
+                className="w-9 sm:w-11 h-12 sm:h-14 text-center text-lg sm:text-xl font-mono font-extrabold rounded-lg outline-none transition-all duration-200"
                 style={{
-                  width: '2.75rem',
-                  height: '3.5rem',
-                  textAlign: 'center',
-                  fontSize: '1.25rem',
-                  fontFamily: 'var(--font-mono)',
-                  fontWeight: 800,
-                  borderRadius: 'var(--radius-lg)',
-                  outline: 'none',
-                  transition: 'all 0.2s ease',
                   background: 'var(--surface-1)',
                   border: digit ? '2px solid var(--color-primary)' : '1px solid var(--border-default)',
                   color: 'var(--text-primary)',

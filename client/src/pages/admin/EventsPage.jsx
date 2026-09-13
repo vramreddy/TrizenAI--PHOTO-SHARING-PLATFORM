@@ -79,14 +79,8 @@ const EventsPage = () => {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       {/* Page Header */}
       <div
-        className="glass"
+        className="glass p-4 sm:p-6 md:p-7 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
         style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1rem',
-          padding: '1.75rem',
           borderRadius: 'var(--radius-2xl)',
         }}
       >
@@ -98,25 +92,17 @@ const EventsPage = () => {
             Manage team assignments, curate uploaded media, and publish protected client delivery links.
           </p>
         </div>
-        <Link to="/events/create" className="btn-primary" style={{ flexShrink: 0 }}>
+        <Link to="/events/create" className="btn-primary justify-center w-full sm:w-auto flex-shrink-0">
           <HiOutlinePlus size={17} /> Create New Event
         </Link>
       </div>
 
       {/* Interactive Controls Bar: Search, Status Tabs, Sort, View Toggle */}
       <div
-        className="card"
-        style={{
-          padding: '0.875rem 1.25rem',
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1rem',
-        }}
+        className="card p-3 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4"
       >
         {/* Status Filter Tabs */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+        <div className="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none max-w-full pb-1 md:pb-0">
           <button
             onClick={() => setStatusFilter('all')}
             style={{
@@ -129,6 +115,7 @@ const EventsPage = () => {
               border: statusFilter === 'all' ? '1px solid hsla(239, 84%, 67%, 0.3)' : '1px solid transparent',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
+              flexShrink: 0,
             }}
           >
             All Projects ({events.length})
@@ -145,6 +132,7 @@ const EventsPage = () => {
               border: statusFilter === 'live' ? '1px solid hsla(160, 84%, 39%, 0.3)' : '1px solid transparent',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
+              flexShrink: 0,
             }}
           >
             Live Client Portals ({liveCount})
@@ -161,6 +149,7 @@ const EventsPage = () => {
               border: statusFilter === 'draft' ? '1px solid hsla(38, 92%, 60%, 0.3)' : '1px solid transparent',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
+              flexShrink: 0,
             }}
           >
             Draft & Ingesting ({draftCount})
@@ -168,9 +157,9 @@ const EventsPage = () => {
         </div>
 
         {/* Search, Sort, View Toggle */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap md:flex-nowrap w-full md:w-auto">
           {/* Search Box */}
-          <div className="input-icon-wrapper" style={{ width: '13rem' }}>
+          <div className="input-icon-wrapper flex-1 md:w-52">
             <HiOutlineSearch className="input-icon" size={15} />
             <input
               type="text"

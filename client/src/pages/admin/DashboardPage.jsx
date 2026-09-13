@@ -127,15 +127,14 @@ const DashboardPage = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       {/* ─── Hero Command Console ─────────────────────────── */}
       <div
-        className="glass"
+        className="glass p-4 sm:p-6 md:p-8"
         style={{
           display: 'flex',
           flexDirection: 'column',
           gap: '1.25rem',
-          padding: '2rem',
           borderRadius: 'var(--radius-2xl)',
           position: 'relative',
           overflow: 'hidden',
@@ -145,7 +144,7 @@ const DashboardPage = () => {
           className="absolute top-0 right-0 w-96 h-96 pointer-events-none"
           style={{ background: 'radial-gradient(circle, hsla(239, 84%, 67%, 0.1) 0%, transparent 70%)', filter: 'blur(50px)' }}
         />
-        <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem' }}>
+        <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1.25rem' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
               <span
@@ -163,7 +162,7 @@ const DashboardPage = () => {
                 <HiOutlineSparkles size={14} /> Production Ingestion Engine
               </span>
             </div>
-            <h1 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2rem)', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.025em', lineHeight: 1.2 }}>
+            <h1 style={{ fontSize: 'clamp(1.35rem, 3.5vw, 2rem)', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.025em', lineHeight: 1.2 }}>
               Event Photography Studio Console
             </h1>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)', marginTop: '0.375rem', maxWidth: '42rem' }}>
@@ -171,8 +170,8 @@ const DashboardPage = () => {
             </p>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <Link to="/events/create" className="btn-primary" style={{ padding: '0.75rem 1.5rem' }}>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
+            <Link to="/events/create" className="btn-primary justify-center" style={{ padding: '0.75rem 1.25rem' }}>
               <HiOutlinePlus size={18} />
               Create New Shoot
             </Link>
@@ -180,7 +179,7 @@ const DashboardPage = () => {
               href="/gallery/arjun-priya-wedding"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-secondary"
+              className="btn-secondary justify-center"
               style={{ padding: '0.75rem 1.25rem' }}
             >
               <HiOutlineExternalLink size={16} />
@@ -191,7 +190,7 @@ const DashboardPage = () => {
       </div>
 
       {/* ─── Metric KPI Grid ───────────────────────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <StatsCard
           icon={HiOutlineCalendar}
           label="Active Projects"
@@ -235,10 +234,10 @@ const DashboardPage = () => {
       </div>
 
       {/* ─── Main Content Split Layout ─────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
         {/* Left 2 Columns: Active Shoots / Events */}
-        <div className="lg:col-span-2" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
+        <div className="lg:col-span-2 flex flex-col gap-4 sm:gap-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h2 style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
                 Photography Shoots & Projects
@@ -249,8 +248,8 @@ const DashboardPage = () => {
             </div>
 
             {/* Quick Search */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div className="input-icon-wrapper" style={{ width: '14rem' }}>
+            <div className="flex items-center gap-2 w-full sm:w-auto">
+              <div className="input-icon-wrapper flex-1 sm:w-56">
                 <HiOutlineSearch className="input-icon" size={15} />
                 <input
                   type="text"
@@ -261,7 +260,7 @@ const DashboardPage = () => {
                   style={{ padding: '0.45rem 0.75rem 0.45rem 2.25rem', fontSize: '0.8125rem' }}
                 />
               </div>
-              <Link to="/events" className="btn-secondary" style={{ padding: '0.45rem 0.75rem', fontSize: '0.75rem', fontWeight: 600 }}>
+              <Link to="/events" className="btn-secondary flex-shrink-0" style={{ padding: '0.45rem 0.75rem', fontSize: '0.75rem', fontWeight: 600 }}>
                 View All ({events.length})
               </Link>
             </div>

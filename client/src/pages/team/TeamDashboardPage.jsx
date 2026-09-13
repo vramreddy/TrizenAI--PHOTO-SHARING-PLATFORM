@@ -43,9 +43,8 @@ const TeamDashboardPage = () => {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       {/* Header */}
       <div
-        className="glass"
+        className="glass p-4 sm:p-6"
         style={{
-          padding: '1.5rem',
           borderRadius: 'var(--radius-2xl)',
         }}
       >
@@ -86,7 +85,7 @@ const TeamDashboardPage = () => {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: '1rem' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {events.map((event, index) => (
             <motion.div
               key={event._id}

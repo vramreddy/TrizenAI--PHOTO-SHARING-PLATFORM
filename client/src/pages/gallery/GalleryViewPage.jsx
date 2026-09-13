@@ -179,13 +179,7 @@ const GalleryViewPage = () => {
     <div style={{ minHeight: '100vh', background: 'var(--surface-base)', color: 'var(--text-primary)' }}>
       {/* ─── Client Gallery Header ──────────────────────────── */}
       <header
-        className="glass-header sticky top-0 z-30"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0.875rem 1.5rem',
-        }}
+        className="glass-header sticky top-0 z-30 flex items-center justify-between px-3 sm:px-6 py-3"
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div
@@ -198,6 +192,7 @@ const GalleryViewPage = () => {
               alignItems: 'center',
               justifyContent: 'center',
               color: 'white',
+              flexShrink: 0,
             }}
           >
             <HiOutlineCamera size={18} />
@@ -206,13 +201,13 @@ const GalleryViewPage = () => {
             <h1 style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
               {gallery?.title || 'Client Photo Gallery'}
             </h1>
-            <p style={{ fontSize: '0.6875rem', color: 'var(--text-muted)' }}>
+            <p className="hidden sm:block" style={{ fontSize: '0.6875rem', color: 'var(--text-muted)' }}>
               TrizenAI Verified High-Resolution Client Portal
             </p>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           {/* Favorites Filter */}
           <button
             onClick={() => setShowOnlyFavorites((prev) => !prev)}
@@ -220,7 +215,7 @@ const GalleryViewPage = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.375rem',
-              padding: '0.45rem 0.875rem',
+              padding: '0.45rem 0.75rem',
               borderRadius: 'var(--radius-lg)',
               fontSize: '0.75rem',
               fontWeight: 600,
@@ -247,7 +242,7 @@ const GalleryViewPage = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.375rem',
-                padding: '0.45rem 0.875rem',
+                padding: '0.45rem 0.75rem',
                 borderRadius: 'var(--radius-lg)',
                 fontSize: '0.75rem',
                 fontWeight: 600,
@@ -265,32 +260,28 @@ const GalleryViewPage = () => {
           <button
             onClick={handleShare}
             className="btn-secondary"
-            style={{ padding: '0.45rem 0.875rem', fontSize: '0.75rem', fontWeight: 600 }}
+            style={{ padding: '0.45rem 0.75rem', fontSize: '0.75rem', fontWeight: 600 }}
           >
-            <HiOutlineShare size={14} /> Share
+            <HiOutlineShare size={14} /> <span className="hidden sm:inline">Share</span>
           </button>
         </div>
       </header>
 
       {/* ─── Hero Portfolio Cover ────────────────────────────── */}
-      <div style={{ maxWidth: '88rem', margin: '0 auto', padding: '2rem 1.5rem' }}>
+      <div style={{ maxWidth: '88rem', margin: '0 auto', padding: '1.25rem 1rem' }}>
         <div
-          className="glass"
+          className="glass p-4 sm:p-8 md:p-10 mb-6 relative overflow-hidden"
           style={{
-            padding: '2.5rem 2rem',
             borderRadius: 'var(--radius-2xl)',
-            marginBottom: '2rem',
-            position: 'relative',
-            overflow: 'hidden',
           }}
         >
           <div
             className="absolute top-0 right-0 w-96 h-96 pointer-events-none"
             style={{ background: 'radial-gradient(circle, hsla(239, 84%, 67%, 0.1) 0%, transparent 70%)', filter: 'blur(50px)' }}
           />
-          <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem' }}>
+          <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1.25rem' }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
                 <span className="badge badge-success">
                   <HiOutlineShieldCheck size={13} /> Verified Client Portal
                 </span>
@@ -298,7 +289,7 @@ const GalleryViewPage = () => {
                   {photos.length} Curated High-Resolution Photographs
                 </span>
               </div>
-              <h1 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.03em', lineHeight: 1.15 }}>
+              <h1 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.03em', lineHeight: 1.15 }}>
                 {gallery?.title || 'Event Gallery'}
               </h1>
               {gallery?.description && (
@@ -308,7 +299,7 @@ const GalleryViewPage = () => {
               )}
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div className="hidden sm:flex" style={{ alignItems: 'center', gap: '0.75rem' }}>
               <div style={{ textAlign: 'right' }}>
                 <p style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Layout View</p>
                 <div style={{ display: 'flex', gap: '0.25rem', marginTop: '0.25rem' }}>
@@ -348,7 +339,7 @@ const GalleryViewPage = () => {
           </div>
         </div>
 
-        {/* ─── Photos Masonry Grid ───────────────────────────── */}
+        {/* ─── Photos Grid ───────────────────────────── */}
         {displayedPhotos.length === 0 ? (
           <div className="card" style={{ textAlign: 'center', padding: '5rem 1.5rem' }}>
             <HiOutlinePhotograph size={36} style={{ color: 'var(--text-muted)', margin: '0 auto 1rem' }} />
@@ -360,13 +351,7 @@ const GalleryViewPage = () => {
             </p>
           </div>
         ) : (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: `repeat(${gridColumns}, minmax(0, 1fr))`,
-              gap: '1rem',
-            }}
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {displayedPhotos.map((photo, index) => {
               const isFav = favorites.has(photo._id);
               return (

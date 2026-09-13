@@ -42,23 +42,32 @@ const AuthLayout = () => {
 
       <div className="w-full max-w-md relative z-10">
         {/* Brand Logo Lockup */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-8 flex flex-col items-center">
           <div
-            className="w-[4.5rem] h-[4.5rem] rounded-2xl flex items-center justify-center mx-auto mb-5 relative"
             style={{
+              width: '4.5rem',
+              height: '4.5rem',
+              borderRadius: 'var(--radius-xl)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 1.25rem auto',
+              position: 'relative',
               background: 'var(--gradient-primary)',
               boxShadow: '0 0 40px -4px hsla(239, 84%, 67%, 0.35), inset 0 1px 0 hsla(0, 0%, 100%, 0.15)',
             }}
           >
-            <HiOutlineCamera className="text-white" size={32} />
             {/* Subtle inner shine */}
             <div
-              className="absolute inset-0 rounded-2xl"
               style={{
-                background: 'linear-gradient(180deg, hsla(0, 0%, 100%, 0.12) 0%, transparent 50%)',
+                position: 'absolute',
+                inset: 0,
+                borderRadius: 'var(--radius-xl)',
+                background: 'linear-gradient(180deg, hsla(0, 0%, 100%, 0.15) 0%, transparent 50%)',
                 pointerEvents: 'none',
               }}
             />
+            <HiOutlineCamera className="text-white" size={34} style={{ display: 'block', flexShrink: 0 }} />
           </div>
           <h1 className="text-3xl font-extrabold tracking-tight" style={{ color: 'var(--text-primary)' }}>
             TrizenAI

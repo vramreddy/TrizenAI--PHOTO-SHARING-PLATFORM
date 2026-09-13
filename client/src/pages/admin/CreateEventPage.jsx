@@ -81,9 +81,8 @@ const CreateEventPage = () => {
 
       {/* Header */}
       <div
-        className="glass"
+        className="glass p-4 sm:p-6"
         style={{
-          padding: '1.75rem',
           borderRadius: 'var(--radius-2xl)',
         }}
       >
@@ -104,7 +103,7 @@ const CreateEventPage = () => {
       {/* Form */}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {/* Basic Shoot Details */}
-        <div className="card" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <div className="card p-4 sm:p-6 flex flex-col gap-4 sm:gap-5">
           <h2 style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <HiOutlineTag size={17} style={{ color: 'var(--color-primary-light)' }} /> Shoot Details
           </h2>
@@ -196,14 +195,10 @@ const CreateEventPage = () => {
 
         {/* Security & Access Notice */}
         <div
-          className="card"
+          className="card p-3.5 sm:p-4 flex items-center gap-3.5"
           style={{
-            padding: '1.25rem',
             background: 'hsla(239, 84%, 67%, 0.04)',
             border: '1px solid hsla(239, 84%, 67%, 0.2)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.875rem',
           }}
         >
           <div
@@ -230,11 +225,11 @@ const CreateEventPage = () => {
         </div>
 
         {/* Submit Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <button
             type="submit"
             disabled={loading || !name.trim()}
-            className="btn-primary"
+            className="btn-primary justify-center"
             id="create-event-submit"
             style={{ padding: '0.75rem 1.75rem' }}
           >
@@ -249,7 +244,7 @@ const CreateEventPage = () => {
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="btn-secondary"
+            className="btn-secondary justify-center"
             style={{ padding: '0.75rem 1.25rem' }}
           >
             Cancel
